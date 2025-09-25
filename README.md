@@ -65,7 +65,7 @@ pip install -r requirements.txt
 2. **Set up your windows:**
    - Open YouTube lecture in your browser
    - Open Discord and navigate to your notes channel
-   - Position windows so you can easily switch between them
+   - Position windows so if you press Alt + Tab you would switch between your browser and discord
 
 3. **Use keyboard shortcuts:**
    - `Shift + 1`: Screenshot → Switch to Discord → Paste → Switch back
