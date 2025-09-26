@@ -15,10 +15,9 @@ When watching educational content on YouTube, manually taking screenshots and sh
 
 - **Cross-platform support** (Windows & Linux)
 - **Configurable keyboard shortcuts** (default: Shift + 1-5)
-- **Multiple screenshot modes** (full window & specific region)
+- **Multiple screenshot modes** (full window via Alt+Print Screen & specific region via snipping tool)
 - **Automatic app switching** between YouTube and Discord
 - **Customizable delays** to accommodate different system speeds
-- **Optional auto-send** feature for immediate posting
 
 ## 🚀 Quick Start
 
@@ -68,8 +67,8 @@ pip install -r requirements.txt
    - Position windows so if you press Alt + Tab you would switch between your browser and discord
 
 3. **Use keyboard shortcuts:**
-   - `Shift + 1`: Screenshot → Switch to Discord → Paste → Switch back
-   - `Shift + 2`: Screenshot → Switch to Discord → Paste → Send → Switch back
+   - `Shift + 1`: Full window screenshot → Switch to Discord → Paste → Switch back
+   - `Shift + 2`: Full window screenshot → Switch to Discord → Paste → Send → Switch back
    - `Shift + 3`: Switch to Discord → Send message → Switch back
    - `Shift + 4`: Region screenshot (longer delay) → Switch → Paste → Switch back
    - `Shift + 5`: Region screenshot → Switch → Paste → Send → Switch back
@@ -82,9 +81,18 @@ You can customize the program by modifying these variables in `main.py`:
 
 ```python
 # Timing adjustments
-DEFAULT_DELAY = 0.3      # General delay between actions
-SS_DELAY = 2             # Time to take a quick screenshot
-SS_LONG_DELAY = 4        # Time to select a specific region
+DEFAULT_DELAY = 0.3        # General delay between actions
+REGION_SS_DELAY = 4        # Time to select a specific region
+
+# Screenshot methods
+def full_ss():
+    keyboard.press("alt")
+    time.sleep(0.05)
+    keyboard.press(PRINT_SCREEN_KEY)
+    time.sleep(0.5)
+    keyboard.release("alt")
+    keyboard.release(PRINT_SCREEN_KEY)
+    time.sleep(1)
 
 # Keyboard shortcuts (modify as needed)
 keyboard.add_hotkey("shift + 1", lambda: run_macro(ss_switch_paste))
@@ -94,11 +102,13 @@ keyboard.add_hotkey("shift + 1", lambda: run_macro(ss_switch_paste))
 ## 🖥️ Platform-Specific Notes
 
 ### Windows
-- Uses `Win+Shift+S` for screenshots (Windows Snipping Tool)
+- Uses `Alt+Print Screen` for full window screenshots (built into Windows)
+- Uses `Win+Shift+S` for region screenshots (Windows Snipping Tool)
 - No special permissions required
 
 ### Linux
-- Uses configurable screenshot shortcuts (default: `Win+Shift+W` for full window, `Win+Shift+S` for region)
+- Uses `Alt+Print Screen` for full window screenshots
+- Uses `Meta+Shift+S` for region screenshots
 - **Requires root privileges** due to keyboard hook limitations
 - Run with: `sudo ./linux_env/bin/python main.py`
 
@@ -110,7 +120,8 @@ keyboard.add_hotkey("shift + 1", lambda: run_macro(ss_switch_paste))
 
 **Screenshots not working:**
 - Verify your system's screenshot shortcuts match the program configuration
-- Adjust `SS_DELAY` if the screenshot tool needs more time to activate
+- For full window screenshots: Ensure `Alt+Print Screen` works on your system
+- For region screenshots: Adjust `REGION_SS_DELAY` if the snipping tool needs more time to activate
 
 **App switching issues:**
 - **Window focus setup is critical**: The program uses `Alt+Tab` to switch between windows, which switches to the last focused window. Make sure your browser (YouTube) and Discord are the last two applications you've used before starting the program, so `Alt+Tab` switches correctly between them

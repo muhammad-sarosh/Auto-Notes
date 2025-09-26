@@ -24,20 +24,30 @@ def run_macro(steps):
         else:
             raise ValueError(f"Unsupported step type: {step}")
 
+# Adjust keybinds according to preference (default alt + print screen)
+# Extra delays are necessary for linux
+def full_ss():
+    keyboard.press("alt")
+    time.sleep(0.05)
+    keyboard.press(PRINT_SCREEN_KEY)
+    time.sleep(0.5)
+    keyboard.release("alt")
+    keyboard.release(PRINT_SCREEN_KEY)
+    time.sleep(1)
+
 # Main
 try:
     # Adjust delays according to preference
     DEFAULT_DELAY = 0.3
-    SS_DELAY = 2
-    SS_LONG_DELAY = 4
+    REGION_SS_DELAY = 4
 
     # Adjust screenshot keybinds according to preference
     if platform.system() == "Windows":
-        FULL_WINDOW_SS = 'win+shift+s'
-        SPECIFIC_REGION_SS = 'win+shift+s'
+        REGION_SS = 'win+shift+s'
+        PRINT_SCREEN_KEY = 'print screen'
     elif platform.system() == "Linux":
-        FULL_WINDOW_SS = 'win+shift+w'
-        SPECIFIC_REGION_SS = 'win+shift+s'
+        REGION_SS = 'win+shift+s'
+        PRINT_SCREEN_KEY = 'compose'
     else:
         print('System not supported')
         exit()
@@ -50,21 +60,21 @@ try:
     ]
 
     ss_switch_paste = [
-        (FULL_WINDOW_SS, SS_DELAY),
+        full_ss,
         "alt+tab",
         "ctrl+v",
         "alt+tab"
     ]
 
     ss_switch_paste_long = [
-        (SPECIFIC_REGION_SS, SS_LONG_DELAY),
+        (REGION_SS, REGION_SS_DELAY),
         "alt+tab",
         "ctrl+v",
         "alt+tab"
     ]
 
     ss_switch_paste_enter = [
-        (FULL_WINDOW_SS, SS_DELAY),
+        full_ss,
         "alt+tab",
         "ctrl+v",
         "enter",
@@ -72,7 +82,7 @@ try:
     ]
 
     ss_switch_paste_enter_long = [
-        (SPECIFIC_REGION_SS, SS_LONG_DELAY),
+        (REGION_SS, REGION_SS_DELAY),
         "alt+tab",
         "ctrl+v",
         "enter",
