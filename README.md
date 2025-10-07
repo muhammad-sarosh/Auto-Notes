@@ -14,9 +14,10 @@ When watching educational content on YouTube, manually taking screenshots and sh
 ## ✨ Features
 
 - **Cross-platform support** (Windows & Linux)
-- **Configurable keyboard shortcuts** (default: Shift + 1-5)
+- **Configurable keyboard shortcuts** (default: Shift + 1-7)
 - **Multiple screenshot modes** (full window via Alt+Print Screen & specific region via snipping tool)
 - **Automatic app switching** between YouTube and Discord
+- **Discord attachment management** (navigate to and delete attachments)
 - **Customizable delays** to accommodate different system speeds
 
 ## 🚀 Quick Start
@@ -28,15 +29,20 @@ When watching educational content on YouTube, manually taking screenshots and sh
 
 ### Installation
 
+#### Windows (Recommended)
+1. Download the `.exe` file from the repository
+2. Run the executable - no Python installation required!
+
+#### Linux or Manual Installation
 1. Clone this repository:
 ```bash
-git clone https://github.com/yourusername/Auto-Notes.git
+git clone https://github.com/muhammad-sarosh/Auto-Notes.git
 cd Auto-Notes
 ```
 
 2. Create a virtual environment (recommended):
 ```bash
-# Windows
+# Windows (if not using .exe)
 python -m venv windows_env
 windows_env\Scripts\activate
 
@@ -54,7 +60,10 @@ pip install -r requirements.txt
 
 1. **Start the program:**
    ```bash
-   # Windows
+   # Windows (.exe)
+   # Just double-click the downloaded .exe file
+   
+   # Windows (Python)
    python main.py
    
    # Linux (requires root for keyboard access)
@@ -72,8 +81,10 @@ pip install -r requirements.txt
    - `Shift + 3`: Switch to Discord → Send message → Switch back
    - `Shift + 4`: Region screenshot (longer delay) → Switch → Paste → Switch back
    - `Shift + 5`: Region screenshot → Switch → Paste → Send → Switch back
+   - `Shift + 6`: Switch to Discord → Navigate to last attachment → Switch back
+   - `Shift + 7`: Switch to Discord → Navigate to last attachment → Delete → Switch back
 
-4. **Stop the program:** Press `Ctrl+C` in the terminal
+4. **Stop the program:** Press `Ctrl+C` in the terminal (or close the .exe window)
 
 ## ⚙️ Configuration
 
@@ -102,11 +113,13 @@ keyboard.add_hotkey("shift + 1", lambda: run_macro(ss_switch_paste))
 ## 🖥️ Platform-Specific Notes
 
 ### Windows
+- **Recommended**: Download and use the `.exe` file for easiest setup
 - Uses `Alt+Print Screen` for full window screenshots (built into Windows)
 - Uses `Win+Shift+S` for region screenshots (Windows Snipping Tool)
-- No special permissions required
+- No special permissions required for the .exe version
 
 ### Linux
+- **Use Python version**: Download source code and run with Python
 - Uses `Alt+Print Screen` for full window screenshots
 - Uses `Meta+Shift+S` for region screenshots
 - **Requires root privileges** due to keyboard hook limitations
@@ -122,6 +135,10 @@ keyboard.add_hotkey("shift + 1", lambda: run_macro(ss_switch_paste))
 - Verify your system's screenshot shortcuts match the program configuration
 - For full window screenshots: Ensure `Alt+Print Screen` works on your system
 - For region screenshots: Adjust `REGION_SS_DELAY` if the snipping tool needs more time to activate
+
+**Discord attachment navigation/deletion not working:**
+- Ensure you're in a Discord channel with attachments when using `Shift + 6` or `Shift + 7`
+- The delete function navigates using Tab keys - Discord's UI layout must be standard
 
 **App switching issues:**
 - **Window focus setup is critical**: The program uses `Alt+Tab` to switch between windows, which switches to the last focused window. Make sure your browser (YouTube) and Discord are the last two applications you've used before starting the program, so `Alt+Tab` switches correctly between them
